@@ -241,6 +241,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
+    throw new Error('Not implemented');
     var i = 0;
     var encodedString = str.slice();
     while(i < str.length){
@@ -293,6 +294,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
+    throw new Error('Not implemented');
     debugger;
     var base = -1;
 
