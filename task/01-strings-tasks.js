@@ -241,14 +241,27 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
-    var i = 0;
-    var encodedString = str.slice();
+    var i = 0, charCode, encodedString = '';
+    
     while(i < str.length){
-        encodedString[i] = (str.charCodeAt(i) + 13).toString();
+        charCode = str.charCodeAt(i);
+
+        if( charCode < 65 || (charCode > 90 && charCode < 97)  || charCode > 122 ){
+            encodedString += str.charAt(i++);
+            continue;
+        }
+        
+        if(65 <= charCode && charCode <= 90 && charCode + 13 > 90)
+            charCode = 65 + 12 - (90 - charCode);
+        else if(97 <= charCode && charCode <= 122 && charCode + 13 > 122)
+            charCode = 97 + 12 - (122 - charCode);
+        else
+            charCode += 13;
+        
+        encodedString += String.fromCharCode(charCode);
         i++;
     }
-    return str;
+    return encodedString;
 }
 
 /**
@@ -294,9 +307,8 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
-    debugger;
-    var base = -1;
+    var base = -1, number = parseInt(value);
+    var symbol = (number == 10) ? value.charAt(2) : value.charAt(1);
 
     switch(value.charAt(0)){
         case 'A': base++;
@@ -307,10 +319,10 @@ function getCardId(value) {
             break;
         case 'K': base += 13;
             break;
-        default: base += parseInt(value);
+        default: base += number;
     }
 
-    switch(value.charAt(1)){
+    switch(symbol){
         case '♣': 
             break;
         case '♦': base += 13;
