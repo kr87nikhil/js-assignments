@@ -273,6 +273,12 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
    throw new Error('Not implemented');
+   return arr.map((x, i) => {
+      var element = x.slice(i, i+1);
+      return arr.concat(element);
+   }).map((x, i) => {
+
+   });
 }
 
 
@@ -341,7 +347,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   throw new Error('Not implemented');
+   return arr.reduce((a,b) => a + b, 0);
 }
  
 /** 
