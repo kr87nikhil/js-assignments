@@ -528,10 +528,12 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
    throw new Error('Not implemented');
-   return new Map(distinct(array
-      .map(x => keySelector(x)))
-      .map(country => array.filter(x=> keySelector(x) === country).reduce((x,y) => valueSelector(x).concat(valueSelector(y)))
-   ));
+   var diff = array;
+   return array.map(x => keySelector(x)).filter((x,i) => !(diff.indexOf(x) < i))
+               .map(country => diff.map((x) => {
+                  if(country == keySelector(x))
+                     return valueSelector(x);
+               }));
 }
 
 
