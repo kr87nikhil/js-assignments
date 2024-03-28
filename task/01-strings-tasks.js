@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return 'Hello, ' + firstName + ' ' + lastName + '!';
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.substring(7).replace('!','');
+    return value.substring(7, value.length - 1);
 }
 
 
@@ -202,25 +202,25 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     var str = '┌';
-    for(var i = 1; i < width - 1; i++){
+    for (var i = 1; i < width - 1; i++) {
         str += '─';
     }
     str += '┐\n';
 
-    for(var i = 1; i < height - 1; i++){
+    for (var i = 1; i < height - 1; i++) {
         str += '│';
-        for(var j = 1; j < width - 1; j++){
+        for (var j = 1; j < width - 1; j++) {
             str += ' ';
         }
         str += '│\n';
     }
 
     str += '└';
-    for(var i = 1; i < width - 1; i++){
+    for (var i = 1; i < width - 1; i++) {
         str += '─';
     }
     str += '┘\n';
-    
+
     return str;
 }
 
@@ -242,22 +242,22 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
     var i = 0, charCode, encodedString = '';
-    
-    while(i < str.length){
+
+    while (i < str.length) {
         charCode = str.charCodeAt(i);
 
-        if( charCode < 65 || (charCode > 90 && charCode < 97)  || charCode > 122 ){
+        if (charCode < 65 || (charCode > 90 && charCode < 97) || charCode > 122) {
             encodedString += str.charAt(i++);
             continue;
         }
-        
-        if(65 <= charCode && charCode <= 90 && charCode + 13 > 90)
+
+        if (65 <= charCode && charCode <= 90 && charCode + 13 > 90)
             charCode = 65 + 12 - (90 - charCode);
-        else if(97 <= charCode && charCode <= 122 && charCode + 13 > 122)
+        else if (97 <= charCode && charCode <= 122 && charCode + 13 > 122)
             charCode = 97 + 12 - (122 - charCode);
         else
             charCode += 13;
-        
+
         encodedString += String.fromCharCode(charCode);
         i++;
     }
@@ -310,7 +310,7 @@ function getCardId(value) {
     var base = -1, number = parseInt(value);
     var symbol = (number == 10) ? value.charAt(2) : value.charAt(1);
 
-    switch(value.charAt(0)){
+    switch (value.charAt(0)) {
         case 'A': base++;
             break;
         case 'J': base += 11;
@@ -322,8 +322,8 @@ function getCardId(value) {
         default: base += number;
     }
 
-    switch(symbol){
-        case '♣': 
+    switch (symbol) {
+        case '♣':
             break;
         case '♦': base += 13;
             break;
